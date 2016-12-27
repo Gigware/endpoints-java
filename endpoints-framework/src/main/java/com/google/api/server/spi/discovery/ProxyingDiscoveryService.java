@@ -26,9 +26,8 @@ import com.google.api.services.discovery.model.RestDescription;
 import com.google.api.services.discovery.model.RpcDescription;
 import com.google.common.annotations.VisibleForTesting;
 
-import java.util.logging.Logger;
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.logging.Logger;
 
 /**
  * A discovery API which acts as a proxy (of sorts) to the Endpoints v1.0 discovery service. Uses
@@ -99,6 +98,7 @@ public class ProxyingDiscoveryService {
       throw new InternalServerErrorException("Internal Server Error");
     }
     StringBuffer url = request.getRequestURL();
-    return url.substring(0, url.length() - (uri.length() - index));
+    String actualRoot =url.substring(0, url.length() - (uri.length() - index));
+    return actualRoot.replace("http://", "https://");
   }
 }
